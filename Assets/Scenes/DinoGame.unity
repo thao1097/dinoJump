@@ -1641,6 +1641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   gravity: 19.62
   jumpForce: 8
+  explosionParticles: {fileID: 8586952673803100164, guid: 8d298d8a531a37e4da246bc8996f4eb7, type: 3}
 --- !u!143 &1140652445
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1675,7 +1676,7 @@ SpriteRenderer:
   m_GameObject: {fileID: 1140652443}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -1691,7 +1692,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2703,6 +2704,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1563232917}
   m_CullTransparentMesh: 1
+--- !u!1 &1650203916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650203918}
+  - component: {fileID: 1650203917}
+  m_Layer: 0
+  m_Name: PostProcessVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1650203917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650203916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.Volume
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 70502419de76c7c40ad1e85c4b32783f, type: 2}
+--- !u!4 &1650203918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650203916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.64315104, y: 2.2300029, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1727081323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,7 +2899,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1010263685}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: onResumeClick
+        m_MethodName: OnResumeClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2912,3 +2962,4 @@ SceneRoots:
   - {fileID: 1239865250}
   - {fileID: 1190969100}
   - {fileID: 1275582241}
+  - {fileID: 1650203918}

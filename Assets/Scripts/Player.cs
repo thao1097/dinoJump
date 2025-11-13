@@ -9,7 +9,12 @@ public class Player : MonoBehaviour
 
     public float jumpForce = 8f;
 
-    
+    // [SerializeField] ParticleSystem explosionParticles;
+    // private ParticleSystem explosionParticlesInstance;
+    [SerializeField] GameObject explosionParticles;
+
+    private GameObject explosionParticlesInstance;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -41,10 +46,16 @@ public class Player : MonoBehaviour
         character.Move(direction * Time.deltaTime);
     }
 
+    public void SpawnExplosionParticles()
+    {
+        explosionParticlesInstance = Instantiate(explosionParticles, transform.position, Quaternion.identity);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))
         {
+            SpawnExplosionParticles();
             GameManager.Instance.PlaySFX(GameManager.Instance.collideSFX);
             GameManager.Instance.GameOver(); // why instance? 
         }

@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
     public AudioClip jumpSFX;
     public AudioClip collideSFX;
-    
-
 
     //reference to player and spawner
     private Player player;
@@ -37,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     // score, time milliseconds, better counting
     private float score;
+
+    private bool isPaused = false;
 
 
     private void Awake()
@@ -104,13 +104,30 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // debug mode to check speed increase
-        gameSpeed += speedIncrease * Time.deltaTime;
+        if (!isPaused && enabled)
+        {
+            // debug mode to check speed increase
+            gameSpeed += speedIncrease * Time.deltaTime;
 
-        // the faster the game = higher difficulty = more score 
-        score += gameSpeed * Time.deltaTime;
-        scoreText.text = Mathf.FloorToInt(score).ToString("D5"); // D5: ensure always 5 digits
+            // the faster the game = higher difficulty = more score 
+            score += gameSpeed * Time.deltaTime;
+            scoreText.text = Mathf.FloorToInt(score).ToString("D5"); // D5: always 5 digits
+        }
 
+        if (Input.GetKeyDown(KeyCode.Escape) && gameSpeed > 0f)
+        {
+            if (!isPaused)
+            {
+                OnPauseClick();
+            }else {
+                OnResumeClick();
+            }
+        }
+
+        //gameSpeed += speedIncrease * Time.deltaTime;
+
+        //score += gameSpeed * Time.deltaTime;
+        // scoreText.text = Mathf.FloorToInt(score).ToString("D5"); // D5: ensure always 5 digits
     }
     public void GameOver()
     {
@@ -160,6 +177,7 @@ public class GameManager : MonoBehaviour
     public void OnPauseClick()
     {
         // open pause panel
+        isPaused = true;
         retryButton.gameObject.SetActive(true);
         resumeButton.gameObject.SetActive(true);
         exitButton.gameObject.SetActive(true);
@@ -169,13 +187,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void onResumeClick()
+    public void OnResumeClick()
     {
+        // unfreezing first feels more natural
+        Time.timeScale = 1f;
+        isPaused = false;
         retryButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         exitButton.gameObject.SetActive(false);
         pauseButton.gameObject.SetActive(true);
-        Time.timeScale = 1;
         musicSource.UnPause();
     }
 
